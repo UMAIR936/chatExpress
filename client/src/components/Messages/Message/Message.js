@@ -1,5 +1,5 @@
 import React from "react";
-
+import { Box } from "@material-ui/core";
 import "./Message.css";
 
 //import ReactEmoji from 'react-emoji';
@@ -14,19 +14,19 @@ const Message = ({ message: { text, user, message }, name }) => {
   }
 
   return isSentByCurrentUser ? (
-    <div className="messageContainer justifyEnd">
+    <Box className="messageContainer justifyEnd">
       <p className="sentText pr-10">{trimmedName}</p>
-      <div className="messageBox backgroundBlue">
+      <Box className="messageBox backgroundBlue">
         <p className="messageText colorWhite">{text}</p>
-      </div>
-    </div>
+      </Box>
+    </Box>
   ) : (
-    <div className="messageContainer justifyStart">
-      <div className="messageBox backgroundLight">
-        <p className="messageText colorDark">{message}</p>
-      </div>
+    <Box className="messageContainer justifyStart">
+      <Box className="messageBox backgroundLight">
+        <p className="messageText colorDark">{text}</p>
+      </Box>
       <p className="sentText pl-10 ">{user}</p>
-    </div>
+    </Box>
   );
 };
 

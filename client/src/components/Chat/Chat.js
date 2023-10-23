@@ -6,7 +6,15 @@ import InfoBar from "../InfoBar/InfoBar";
 import Input from "../Input/Input";
 import "./Chat.css";
 import queryString from "query-string";
-
+import {
+  Box,
+  Avatar,
+  Button,
+  Paper,
+  Grid,
+  Typography,
+  Container,
+} from "@material-ui/core";
 const ENDPOINT = "http://localhost:4000";
 const socket = socketIO(ENDPOINT, { transports: ["websocket"] });
 
@@ -48,8 +56,8 @@ const Chat = () => {
   };
   console.log(message, messages);
   return (
-    <div className="outerContainer">
-      <div className="container">
+    <Box className="outerContainer">
+      <Box className="container">
         <InfoBar room={room} />
         <Messages messages={messages} name={name} />
         <Input
@@ -57,8 +65,8 @@ const Chat = () => {
           setMessage={setMessage}
           sendMessage={sendMessage}
         />
-      </div>
-    </div>
+      </Box>
+    </Box>
   );
 };
 

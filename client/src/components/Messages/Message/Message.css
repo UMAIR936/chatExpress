@@ -60,8 +60,10 @@
 
 .backgroundBlue {
   background: #ddba47;
+  border-bottom-right-radius: 0px 12px;
 }
 
 .backgroundLight {
   background: #f8fafb;
+  border-bottom-left-radius: 0px 12px;
 }

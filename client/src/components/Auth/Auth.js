@@ -54,6 +54,7 @@ const SignUp = () => {
             !form.name || !form.room ? e.preventDefault() : null
           }
           to={`/chat?name=${form.name}&room=${form.room}`}
+          style={{ width: "100%", textDecoration: "none" }}
         >
           <Button
             type="submit"
@@ -61,6 +62,7 @@ const SignUp = () => {
             variant="contained"
             color="primary"
             className={classes.submit}
+            style={{ background: "#ddba47" }}
           >
             Sign In
           </Button>

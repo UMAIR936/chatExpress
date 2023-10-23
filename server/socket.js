@@ -11,11 +11,12 @@ export const configureSocket = (io) => {
       socket.join(user?.room);
       socket.emit("message", {
         user: "admin",
-        message: `${user?.name}, welcome to ${user?.room}`,
+        text: `${user?.name}, welcome to ${user?.room}`,
       });
       socket.broadcast
         .to(user?.room)
         .emit("message", { user: "admin", text: `${user?.name}, has joined` });
+
       callback();
     });
 
