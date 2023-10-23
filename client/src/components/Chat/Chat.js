@@ -1,16 +1,23 @@
 import React, { useState, useEffect } from "react";
 import socketIO from "socket.io-client";
 import { useLocation } from "react-router-dom";
-const ENDPOINT = "http://localhost:4000";
-
+import Messages from "../Messages/Messages";
+import InfoBar from "../InfoBar/InfoBar";
+import Input from "../Input/Input";
+import "./Chat.css";
 import queryString from "query-string";
+
+const ENDPOINT = "http://localhost:4000";
+const socket = socketIO(ENDPOINT, { transports: ["websocket"] });
+
 const Chat = () => {
   const location = useLocation();
   const [name, setName] = useState("");
   const [room, setRoom] = useState("");
+  const [message, setMessage] = useState("");
+  const [messages, setMessages] = useState([]);
   useEffect(() => {
     const { name, room } = queryString.parse(location.search);
-    const socket = socketIO(ENDPOINT, { transports: ["websocket"] });
     setName(name);
     setRoom(room);
 
@@ -18,19 +25,39 @@ const Chat = () => {
       console.log("Connected to server");
     });
 
-    socket.emit("join", { name, room }, ({ error }) => {
-      console.log(error);
+    socket.emit("join", { name, room }, (error) => {
+      if (error) {
+        alert(error);
+      }
     });
     console.log(name, room);
-
-    return () => {
-      socket.emit("disconnect");
-      socket.off();
-    };
   }, [location, ENDPOINT]);
+
+  useEffect(() => {
+    socket.on("message", (message) => {
+      setMessages((messages) => [...messages, message]);
+    });
+  }, []);
+
+  const sendMessage = (event) => {
+    event.preventDefault();
+
+    if (message) {
+      socket.emit("sendMessage", message, () => setMessage(""));
+    }
+  };
+  console.log(message, messages);
   return (
-    <div>
-      <h1>Test</h1>
+    <div className="outerContainer">
+      <div className="container">
+        <InfoBar room={room} />
+        <Messages messages={messages} name={name} />
+        <Input
+          message={message}
+          setMessage={setMessage}
+          sendMessage={sendMessage}
+        />
+      </div>
     </div>
   );
 };
