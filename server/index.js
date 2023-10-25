@@ -12,10 +12,8 @@ const CONNECTION_URL = "mongodb://localhost:27017/Chat";
 const PORT = process.env.PORT || 4000;
 
 // API Routes
-import chatRoutes from "./routes/chats.js";
-import userRoutes from "./routes/user.js";
+import userRoutes from "./routes/users.js";
 
-app.use("/chat", chatRoutes);
 app.use("/user", userRoutes);
 
 // Middleware
